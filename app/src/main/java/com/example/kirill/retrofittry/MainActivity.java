@@ -1,112 +1,104 @@
 package com.example.kirill.retrofittry;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String ENDPOINT_URL = "http://192.168.0.105:8000";
-    private TextView coursesTV;
-    private GetCourses getCourses;
+    private API api;
+    private TextView name;
+    private TextView email;
+    private TextView password1;
+    private TextView password2;
+
+    public static final String POINT_URL = "http://192.168.1.50:8000";
+
+
+
+    public String authtoken = "Token ";
+
+    private void RegisterUser(RegistrationBody body) {
+        Call<RegistrationResponse> call = api.registerUser(body);
+        call.enqueue(new Callback<RegistrationResponse>() {
+            @Override
+            public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.e("sucsess", "it's worked");
+                    authtoken = authtoken + response.toString();
+                    Intent i = new Intent(MainActivity.this, GetCoursesActivity.class);
+                    startActivity(i);
+                } else {
+                    Log.e("error response", "error with token");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegistrationResponse> call, Throwable t) {
+                Log.e("falue", "falue!!!", t);
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.register);
 
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(300, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .writeTimeout(300, TimeUnit.SECONDS)
+                .build();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(ENDPOINT_URL).
-                addConverterFactory(GsonConverterFactory.create()).
-                build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(POINT_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
 
-        getCourses = retrofit.create(GetCourses.class);
+        api = retrofit.create(API.class);
+        name = (TextView) findViewById(R.id.Name);
+        email = (TextView) findViewById(R.id.email);
+        password1 = (TextView) findViewById(R.id.password1);
+        password2 = (TextView) findViewById(R.id.password2);
 
-
-        Button allbtn = (Button) findViewById(R.id.getallBtn);
-        allbtn.setOnClickListener(new View.OnClickListener() {
+        Button registerbtn = (Button) findViewById(R.id.registerbtn);
+        registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadCourses();
+                RegistrationBody body = new RegistrationBody();
+                body.username = name.getText().toString();
+                body.email = email.getText().toString();
+                body.password1 = password1.getText().toString();
+                body.password2 = password2.getText().toString();
+                RegisterUser(body);
             }
         });
 
-        Button onebtn = (Button) findViewById(R.id.oneBtn);
-        onebtn.setOnClickListener(new View.OnClickListener() {
+        TextView logintext = (TextView) findViewById(R.id.loginurl);
+        logintext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadCourse(2);
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
             }
         });
-
-        coursesTV = (TextView) findViewById(R.id.coursesTv);
-
-    }
-
-    private void loadCourses() {
-        Call<Courses> call = getCourses.all();
-        call.enqueue(new Callback<Courses>() {
-            @Override
-            public void onResponse(Call<Courses> call, Response<Courses> response) {
-                Courses courses = response.body();
-                displayCourses(courses);
-            }
-
-            @Override
-            public void onFailure(Call<Courses> call, Throwable t) {
-                Log.e("one course", "I got an error with all courses", t);
-            }
-        });
-    }
-
-    private void displayCourses(Courses c) {
-        if (c != null) {
-            List<Course> courses = c.getCourses();
-            String tmp = "";
-
-            for (Course course : courses) {
-                tmp += course.getId() + " | " + course.getDescription() + " | ";
-            }
-
-            coursesTV.setText(tmp);
-        } else {
-            coursesTV.setText("Error to get Courses");
-        }
-    }
-
-    private void loadCourse(int id) {
-        Call<Course> call = getCourses.select(id);
-        call.enqueue(new Callback<Course>() {
-            @Override
-            public void onResponse(Call<Course> call, Response<Course> response) {
-                displayCourse(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Course> call, Throwable t) {
-                Log.e("one course", "I got an error with one course", t);
-            }
-        });
-    }
-
-    private void displayCourse(Course course) {
-        if (course != null) {
-            String tmp = course.getId() + " | " + course.getDescription() + " | ";
-            coursesTV.setText(tmp);
-        } else {
-            coursesTV.setText("Error to get Course");
-        }
     }
 }
+
+
