@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GetCoursesActivity extends AppCompatActivity {
 
-    public static final String BASE_URL = "http://192.168.1.50:8000";
+    public static final String BASE_URL = "http://192.168.0.105:8000";
     private TextView coursesTV;
     private GetCourses getCourses;
 
@@ -92,8 +92,7 @@ public class GetCoursesActivity extends AppCompatActivity {
             String tmp = "";
 
             for (Course course : courses) {
-                tmp += course.getId() + " | " + course.getDescription() + " | ";
-
+                tmp += course.getId() + " | " + course.getDescription() + " | " + courses.size();
                 coursesTV.setText(tmp);
             }
         } else {

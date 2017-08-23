@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.kirill.retrofittry.future.ListViewForCourses;
+
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView password1;
     private TextView password2;
 
-    public static final String POINT_URL = "http://192.168.1.50:8000";
+    public static final String POINT_URL = "http://192.168.1.52:8000";
 
 
 
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.e("sucsess", "it's worked");
                     authtoken = authtoken + response.toString();
-                    Intent i = new Intent(MainActivity.this, GetCoursesActivity.class);
+                    Intent i = new Intent(MainActivity.this, TableCourseActivity.class);
                     startActivity(i);
                 } else {
                     Log.e("error response", "error with token");

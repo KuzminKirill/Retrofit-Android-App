@@ -12,6 +12,6 @@ public interface API {
     @POST("rest-auth/registration/")
     Call<RegistrationResponse> registerUser(@Body RegistrationBody registrationBody);
 
-    @POST("api-auth/login/")
+    @POST("/rest-auth/login/")
     Call<LoginResponse> loginUser(@Body LoginBody loginBody);
 }

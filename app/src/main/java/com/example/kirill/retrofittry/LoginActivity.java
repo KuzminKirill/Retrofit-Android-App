@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,45 +27,43 @@ import static android.app.PendingIntent.getActivity;
  */
 
 public class LoginActivity extends AppCompatActivity {
-    public static final String POINT_URL = "http://192.168.1.50:8000";
+    public static final String POINT_URL = "http://192.168.1.44:8000";
 
     private API api;
     private TextView name;
     private TextView password;
     public String authtoken = "Token ";
 
-    private void LoginUser(LoginBody logbody) {
-        Call<LoginResponse> call = api.loginUser(logbody);
-        call.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> logresponse) {
-                if (logresponse.isSuccessful()) {
-                    Log.e("sucsess", "it's worked");
-                    authtoken = authtoken + logresponse.toString();
-                } else {
-                    Log.e("error response", "error with token");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.e("falue", "falue!!!", t);
-            }
-        });
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(POINT_URL).
-                addConverterFactory(GsonConverterFactory.create()).
-                build();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(300, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .writeTimeout(300, TimeUnit.SECONDS)
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(POINT_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
 
         api = retrofit.create(API.class);
+
         name = (TextView) findViewById(R.id.Name);
         password = (TextView) findViewById(R.id.Password);
+
+        TextView registertext = (TextView) findViewById(R.id.registerurl);
+        registertext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         Button loginbtn = (Button) findViewById(R.id.loginbtn);
         loginbtn.setOnClickListener(new View.OnClickListener() {
@@ -73,4 +77,28 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+    private void LoginUser(LoginBody loginbody) {
+        Call<LoginResponse> call = api.loginUser(loginbody);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.e("sucsess", "it's worked");
+                    //authtoken = authtoken + response.toString();
+                    Intent i = new Intent(LoginActivity.this, TableCourseActivity.class);
+                    startActivity(i);
+                } else {
+                    Log.e("error response", "error with token");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.e("falue", "falue!!!", t);
+            }
+        });
+    }
+
+
 }

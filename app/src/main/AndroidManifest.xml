@@ -18,8 +18,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"></activity>
-
         <activity android:name=".GetCoursesActivity"></activity>
+        <activity android:name=".future.ListViewForCourses"></activity>
+        <activity android:name=".TableCourseActivity"></activity>
+        <activity android:name=".CourseDetailActivity"></activity>
     </application>
 
 </manifest>
