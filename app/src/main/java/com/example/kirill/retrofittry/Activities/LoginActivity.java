@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.kirill.retrofittry.BuildConfig;
 import com.example.kirill.retrofittry.Interfaces.API;
+import com.example.kirill.retrofittry.Settings;
 import com.example.kirill.retrofittry.Structures.LoginBody;
 import com.example.kirill.retrofittry.Structures.LoginResponse;
 import com.example.kirill.retrofittry.R;
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.POINT_URL)
+                .baseUrl(Settings.POINT_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

@@ -7,11 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.kirill.retrofittry.BuildConfig;
+
 import com.example.kirill.retrofittry.Parsers.Course;
 import com.example.kirill.retrofittry.Parsers.Courses;
 import com.example.kirill.retrofittry.Interfaces.GetCourses;
 import com.example.kirill.retrofittry.R;
+import com.example.kirill.retrofittry.Settings;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -44,7 +45,7 @@ public class GetCoursesActivity extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.POINT_URL)
+                .baseUrl(Settings.POINT_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

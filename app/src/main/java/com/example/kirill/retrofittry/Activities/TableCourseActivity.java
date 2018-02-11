@@ -12,10 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.example.kirill.retrofittry.BuildConfig;
 import com.example.kirill.retrofittry.Parsers.Course;
 import com.example.kirill.retrofittry.Interfaces.GetCourses;
 import com.example.kirill.retrofittry.R;
+import com.example.kirill.retrofittry.Settings;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,7 +54,7 @@ public class TableCourseActivity extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.POINT_URL)
+                .baseUrl(Settings.POINT_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

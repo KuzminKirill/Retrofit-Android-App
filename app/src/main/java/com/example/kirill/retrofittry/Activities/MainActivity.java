@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.kirill.retrofittry.BuildConfig;
 import com.example.kirill.retrofittry.Interfaces.API;
 import com.example.kirill.retrofittry.R;
+import com.example.kirill.retrofittry.Settings;
 import com.example.kirill.retrofittry.Structures.RegistrationBody;
 import com.example.kirill.retrofittry.Structures.RegistrationResponse;
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.POINT_URL)
+                .baseUrl(Settings.POINT_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
