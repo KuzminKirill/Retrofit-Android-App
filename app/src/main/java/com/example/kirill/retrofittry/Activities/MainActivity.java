@@ -1,4 +1,4 @@
-package com.example.kirill.retrofittry;
+package com.example.kirill.retrofittry.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +14,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.kirill.retrofittry.future.ListViewForCourses;
+import com.example.kirill.retrofittry.BuildConfig;
+import com.example.kirill.retrofittry.Interfaces.API;
+import com.example.kirill.retrofittry.R;
+import com.example.kirill.retrofittry.Structures.RegistrationBody;
+import com.example.kirill.retrofittry.Structures.RegistrationResponse;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView email;
     private TextView password1;
     private TextView password2;
-
-    public static final String POINT_URL = "http://192.168.1.52:8000";
-
 
 
     public String authtoken = "Token ";
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(POINT_URL)
+                .baseUrl(BuildConfig.POINT_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

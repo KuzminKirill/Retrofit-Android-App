@@ -1,6 +1,8 @@
-package com.example.kirill.retrofittry;
+package com.example.kirill.retrofittry.Parsers;
 
 import java.util.List;
+
+import com.example.kirill.retrofittry.Parsers.Course;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

@@ -1,4 +1,4 @@
-package com.example.kirill.retrofittry;
+package com.example.kirill.retrofittry.Parsers;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

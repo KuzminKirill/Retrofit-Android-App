@@ -1,4 +1,4 @@
-package com.example.kirill.retrofittry;
+package com.example.kirill.retrofittry.Structures;
 
 /**
  * Created by Kirill on 20.04.2017.

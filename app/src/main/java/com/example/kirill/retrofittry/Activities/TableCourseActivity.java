@@ -1,31 +1,24 @@
-package com.example.kirill.retrofittry;
+package com.example.kirill.retrofittry.Activities;
 
 import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.BitmapFactory;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextClock;
 import android.widget.TextView;
+
+import com.example.kirill.retrofittry.BuildConfig;
+import com.example.kirill.retrofittry.Parsers.Course;
+import com.example.kirill.retrofittry.Interfaces.GetCourses;
+import com.example.kirill.retrofittry.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -41,7 +34,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TableCourseActivity extends AppCompatActivity {
 
-    public static final String BASE_URL = "http://192.168.1.44:8000";
     private TextView coursename;
     private TextView coursedescription;
     private TextView coursetime;
@@ -62,7 +54,7 @@ public class TableCourseActivity extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(BuildConfig.POINT_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

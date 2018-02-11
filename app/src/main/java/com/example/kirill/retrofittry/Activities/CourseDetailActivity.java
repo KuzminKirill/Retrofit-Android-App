@@ -1,4 +1,4 @@
-package com.example.kirill.retrofittry;
+package com.example.kirill.retrofittry.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,13 +17,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
+import com.example.kirill.retrofittry.BuildConfig;
+import com.example.kirill.retrofittry.Interfaces.GetCourses;
+import com.example.kirill.retrofittry.Interfaces.GetQuestions;
+import com.example.kirill.retrofittry.Interfaces.GetTests;
+import com.example.kirill.retrofittry.Interfaces.GetThemes;
+import com.example.kirill.retrofittry.Parsers.Question;
+import com.example.kirill.retrofittry.R;
+
 /**
  * Created by Kirill on 08.05.2017.
  */
 
 public class CourseDetailActivity extends AppCompatActivity {
 
-    public static final String POINT_URL = "http://192.168.1.52:8000";
+
     private GetCourses getCourses;
     private GetQuestions getQuestions;
     private GetThemes getThemes;
@@ -40,7 +48,7 @@ public class CourseDetailActivity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(POINT_URL)
+                .baseUrl(BuildConfig.POINT_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

@@ -1,4 +1,4 @@
-package com.example.kirill.retrofittry;
+package com.example.kirill.retrofittry.Parsers;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

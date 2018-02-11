@@ -1,4 +1,7 @@
-package com.example.kirill.retrofittry;
+package com.example.kirill.retrofittry.Interfaces;
+
+import com.example.kirill.retrofittry.Parsers.Course;
+import com.example.kirill.retrofittry.Parsers.Courses;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

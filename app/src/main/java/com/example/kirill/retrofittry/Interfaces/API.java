@@ -1,4 +1,9 @@
-package com.example.kirill.retrofittry;
+package com.example.kirill.retrofittry.Interfaces;
+
+import com.example.kirill.retrofittry.Structures.LoginBody;
+import com.example.kirill.retrofittry.Structures.LoginResponse;
+import com.example.kirill.retrofittry.Structures.RegistrationBody;
+import com.example.kirill.retrofittry.Structures.RegistrationResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

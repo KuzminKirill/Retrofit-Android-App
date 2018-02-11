@@ -2,17 +2,15 @@ package com.example.kirill.retrofittry.future;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.kirill.retrofittry.Course;
-import com.example.kirill.retrofittry.Courses;
-import com.example.kirill.retrofittry.GetCourses;
+import com.example.kirill.retrofittry.Parsers.Course;
+import com.example.kirill.retrofittry.Parsers.Courses;
+import com.example.kirill.retrofittry.Interfaces.GetCourses;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

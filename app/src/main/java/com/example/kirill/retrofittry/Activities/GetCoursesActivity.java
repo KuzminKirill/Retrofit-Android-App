@@ -1,4 +1,4 @@
-package com.example.kirill.retrofittry;
+package com.example.kirill.retrofittry.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,14 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.kirill.retrofittry.BuildConfig;
+import com.example.kirill.retrofittry.Parsers.Course;
+import com.example.kirill.retrofittry.Parsers.Courses;
+import com.example.kirill.retrofittry.Interfaces.GetCourses;
+import com.example.kirill.retrofittry.R;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
 import okhttp3.OkHttpClient;
-import okhttp3.ConnectionPool;
-import okhttp3.ConnectionSpec;
-import okhttp3.Connection;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GetCoursesActivity extends AppCompatActivity {
 
-    public static final String BASE_URL = "http://192.168.0.105:8000";
     private TextView coursesTV;
     private GetCourses getCourses;
 
@@ -42,7 +44,7 @@ public class GetCoursesActivity extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(BuildConfig.POINT_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

@@ -1,4 +1,4 @@
-package com.example.kirill.retrofittry;
+package com.example.kirill.retrofittry.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.kirill.retrofittry.BuildConfig;
+import com.example.kirill.retrofittry.Interfaces.API;
+import com.example.kirill.retrofittry.Structures.LoginBody;
+import com.example.kirill.retrofittry.Structures.LoginResponse;
+import com.example.kirill.retrofittry.R;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +30,6 @@ import static android.app.PendingIntent.getActivity;
  */
 
 public class LoginActivity extends AppCompatActivity {
-    public static final String POINT_URL = "http://192.168.1.44:8000";
 
     private API api;
     private TextView name;
@@ -46,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(POINT_URL)
+                .baseUrl(BuildConfig.POINT_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
