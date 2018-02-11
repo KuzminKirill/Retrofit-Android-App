@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.kirill.retrofittry.Activities.GetCoursesActivity;
+
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView password1;
     private TextView password2;
 
-    public static final String POINT_URL = "http://192.168.1.50:8000";
+    public static final String POINT_URL = "http://192.168.0.105:8000";
 
 
 
